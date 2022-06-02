@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+	<header class="header">
+<link rel="stylesheet" href="style2.css">
+  <a href="#" class="logo">Planning</a>
+  <button class="header__btn_open-topnav header__btn"><span class="icon-menu-open"></span></button>
+  <ul class="topnav topnav_mobile_show">
+    <button class="header__btn_close-topnav header__btn"><span class="icon-menu-close"></span></button>
+    <li class="topnav__item">
+      <a href="index---.php" class="topnav__link">Gestion Employés</a>
+    </li>
+    <li class="topnav__item">
+      <a href="Pointage.php" class="topnav__link">Planning Pointage</a>
+    </li>
+    <!-- <li class="topnav__item">
+      <a href="#" class="topnav__link">Careers</a>
+    </li>
+    <li class="topnav__item">
+      <a href="#" class="topnav__link">About</a>
+    </li> -->
+  </ul>
+</link>
+</header>
   <meta charset="UTF-8">
   <title>CodePen - Bootstrap Crud Data Table For Database with Modal Form.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,7 +104,7 @@
 					<div class="table-title">
 						<div class="row">
 							<div class="col-sm-6">
-								<h2>Gestion <b>d'Employés</b></h2>
+								<h2>Gestion <b>Employés</b></h2>
 							</div>
 							<div class="col-sm-6">
 								<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajoute un nouvel employé</span></a>

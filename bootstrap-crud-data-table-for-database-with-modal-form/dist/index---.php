@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
 	<header class="header">
-<link rel="stylesheet" href="style2.css">
+<link rel="stylesheet" href="./styles/style2.css">
   <a href="#" class="logo">Planning</a>
   <button class="header__btn_open-topnav header__btn"><span class="icon-menu-open"></span></button>
   <ul class="topnav topnav_mobile_show">
@@ -13,12 +13,6 @@
     <li class="topnav__item">
       <a href="Pointage.php" class="topnav__link">Planning Pointage</a>
     </li>
-    <!-- <li class="topnav__item">
-      <a href="#" class="topnav__link">Careers</a>
-    </li>
-    <li class="topnav__item">
-      <a href="#" class="topnav__link">About</a>
-    </li> -->
   </ul>
 </link>
 </header>
@@ -31,7 +25,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script><link rel="stylesheet" href="./style.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script><link rel="stylesheet" href="./styles/style.css">
 
 </head>
 <body>
@@ -97,7 +91,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js" ></script>
   
-  		<body>
+<body>
+
+<!-- Vérification si l'utilisateur est bien connecté -->
+<?php
+	session_start();
+	if (!isset($_SESSION['username']) || $_SESSION['username']!='admin' ) {
+		header("location: Login.php");
+		exit;
+	}
+	session_write_close();
+?>
+
+
 			<div class="container">
 			<az id="nonPrintable">
 				<div class="table-wrapper">
@@ -108,7 +114,7 @@
 							</div>
 							<div class="col-sm-6">
 								<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajoute un nouvel employé</span></a>
-								<!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>			-->			
+								<a href="deconnexion.php" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Déconnexion</span></a>				
 							</div>
 						</div>
 					</div>

@@ -13,6 +13,9 @@
             <li class="topnav__item">
                <a href="Pointage.php" class="topnav__link">Planning Pointage</a>
             </li>
+			<li class="topnav__item">
+				<a href="deconnexion.php" class="topnav__link">Déconnexion</a>
+			</li>
          </ul>
          </link>
       </header>
@@ -109,9 +112,7 @@
                               <h2>Pointage <b>Employés</b></h2>
                            </div>
                            <div class="col-sm-6">
-                              <a href="#addEmployeeModal" class="btn btn-success add" id="add" data-toggle="modal" ><i class="material-icons">&#xE147;</i> <span>Pointer quelqu'un</span></a>
-                              <a href="deconnexion.php" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Déconnexion</span></a>				
-                           </div>
+                              <a href="#addEmployeeModal" class="btn btn-success add" id="add" data-toggle="modal" ><i class="material-icons">&#xE147;</i> <span>Pointer quelqu'un</span></a>                           </div>
                         </div>
                      </div>
                      <table class="table table-striped table-hover">

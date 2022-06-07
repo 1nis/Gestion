@@ -3,6 +3,14 @@
    <head>
       <header class="header">
          <meta charset="UTF-8">
+         <?php
+               session_start();
+               if (!isset($_SESSION['username']) || $_SESSION['username']!='admin' ) {
+                  header("location: Login.php");
+                  exit;
+               }
+               session_write_close();
+            ?>
          <link rel="stylesheet" href="./styles/style2.css">
          <a href="#" class="logo">Planning</a>
          <button class="header__btn_open-topnav header__btn"><span class="icon-menu-open"></span></button>

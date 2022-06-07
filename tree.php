@@ -1508,7 +1508,7 @@
                                     <span class="font-d"> Intitulé </span>
                                  </div>
                                  <div class="col-md-8">
-                                    <select class="form-select plan-choice bg-light border-0 shadow-none" name="intitule_p" required="">
+                                    <select class="form-select plan-choice bg-light border-0 shadow-none" name="intitule_p">
                                     </select>
                                  </div>
                               </div>

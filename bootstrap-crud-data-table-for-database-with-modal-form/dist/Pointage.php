@@ -2,6 +2,7 @@
 <html lang="en" >
    <head>
       <header class="header">
+         <meta charset="UTF-8">
          <link rel="stylesheet" href="./styles/style2.css">
          <a href="#" class="logo">Planning</a>
          <button class="header__btn_open-topnav header__btn"><span class="icon-menu-open"></span></button>
@@ -13,13 +14,16 @@
             <li class="topnav__item">
                <a href="Pointage.php" class="topnav__link">Planning Pointage</a>
             </li>
-			<li class="topnav__item">
-				<a href="deconnexion.php" class="topnav__link">Déconnexion</a>
-			</li>
+            <li class="topnav__item">
+               <a href="" id ="export_button" class="topnav__link" data-toggle="modal">Export Data</a>
+            </li>
+			   <li class="topnav__item">
+				   <a href="deconnexion.php" class="topnav__link">Déconnexion</a>
+			   </li>
          </ul>
          </link>
       </header>
-      <meta charset="UTF-8">
+      
       <title>CodePen - Bootstrap Crud Data Table For Database with Modal Form.</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
@@ -27,8 +31,8 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" ></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
       <link rel="stylesheet" href="./styles/style.css">
    </head>
    <body>
@@ -115,7 +119,7 @@
                               <a href="#addEmployeeModal" class="btn btn-success add" id="add" data-toggle="modal" ><i class="material-icons">&#xE147;</i> <span>Pointer quelqu'un</span></a>                           </div>
                         </div>
                      </div>
-                     <table class="table table-striped table-hover">
+                     <table id="table_info" class="table table-striped table-hover">
                         <thead>
                            <tr>
                               <th>
@@ -441,12 +445,31 @@
             </div>
             </div>
             </div>
+               <!-- Export Modal HTML
+            <div id="exportEmployeeModal" class="modal fade">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <form method="POST" action ="" >
+                        <div class="modal-header">						
+                           <h4 class="modal-title">Exporter les employés</h4>
+                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                           <a href="export_pointage_tableur.php" class="btn btn-default" >Format Tableur</a>
+                           <a href="export_pointage_tableur.php" class="btn btn-info" >Format PDF</a>			
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div> -->
             </az>
          </body>
       </html>
       <!-- partial -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      <script  src="./script.js"></script>
       <script>
          $(".edit").click(function(){
          	var id_row = $(this).attr("id");
@@ -579,6 +602,45 @@
          if ( window.history.replaceState ) {
              window.history.replaceState( null, null, window.location.href );
          }
+      </script>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+
+      <script>
+         $("#export_button").click(function(){
+         $(document).ready(function() {
+         $('#table_info').DataTable( {
+            dom: 'Bfrtip',
+            paging: false,
+            ordering: false,
+            info: false,
+            searching : false,
+            buttons: [
+               {extend: 'pdf',
+                     exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4 ],
+                     },
+                     text:'PDF'
+               },
+            {extend: 'excelHtml5',
+                     exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4 ],
+                     },
+                     text:'Excel'
+               }
+            ]
+         }  );
+      } );
+      });
+
+
       </script>
    </body>
 </html>

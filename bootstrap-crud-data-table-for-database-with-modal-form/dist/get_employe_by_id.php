@@ -3,7 +3,7 @@ require_once "Connexion.php";
 
     $uid = $_POST['id_row'];
     $insertion= array();
-    $insertion = $connexion->query("SELECT `ID`, `Nom`, `Email`, `Adresse`, `Telephone` FROM user WHERE ID = '$uid'")->fetch(PDO::FETCH_OBJ);
+    $insertion = $connexion->query("SELECT * FROM user WHERE ID = '$uid'")->fetch(PDO::FETCH_OBJ);
     echo (json_encode($insertion));
 
 

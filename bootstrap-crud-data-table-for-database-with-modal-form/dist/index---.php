@@ -200,7 +200,7 @@
                               			</span>
                               		</td>';
 									echo '<td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">';
-                              		echo '<img src="data:image/jpeg;base64,'.base64_encode($users['Image']).'" height="35" width="60"/>';								  ; 
+                              		echo '<img src="'.($users['Image']).'" height="35" width="37"/>';								  ; 
                               		echo '</td>'; 
                               		echo '<td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">';
                               		echo $users['Nom']; 
@@ -269,6 +269,10 @@
                               <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
                            </div>
                            <div class="modal-body">
+                              <div class="form-group" id="nomgroup">
+                                    <label>Photo Utilisateur : </label>
+                                    <img class="photovoir" id="photovoir" src="" height="35" width="37"/>
+                              </div>
                               <div class="form-group" id="nomgroup">
                                  <label>Nom</label>
                                  <input type="text" class="form-control" name="nomvoir" id="nomvoir" readonly required>
@@ -375,10 +379,12 @@
             <input type="reset" class="btn btn-default" data-dismiss="modal" value="Annuler">
             <input type="Submit" class="btn btn-success" name="Ajouter" value="Ajouter">
             <?php
+               $default = './img/default.jpg';
                // Ici si l'utilisateur clique sur le bouton ajouter alors les valeurs sont directement ajouter dans la bdd dans la table user //
                	if (isset($_POST['Ajouter'])) {
-               		$ajouterpersonne = $connexion->query("INSERT INTO user VALUES (null, '{$_POST['nomajouter']}', '{$_POST['mailajouter']}', '{$_POST['adresseajouter']}', '{$_POST['numeroajouter']}')");
-               		echo "<meta http-equiv='refresh' content='0'>";
+               		$ajouterpersonne = $connexion->query("INSERT INTO user VALUES (null, '{$_POST['nomajouter']}', '{$_POST['mailajouter']}', '{$_POST['adresseajouter']}', '{$_POST['numeroajouter']}', '$default')");
+               		
+                     echo "<meta http-equiv='refresh' content='0'>";
                	}
                ?>
             </div>
@@ -533,6 +539,7 @@
          		success: function(data)
          		{
          			data = JSON.parse(data);
+                  document.getElementById("photovoir").src = data.Image;
          			document.getElementById("nomvoir").value = data.Nom;
          			document.getElementById("mailvoir").value = data.Email;
          			document.getElementById("adressevoir").value = data.Adresse;
@@ -600,7 +607,7 @@
          	buttons: [
          		{extend: 'pdf',
                          exportOptions: {
-                          columns: [ 0, 1, 2, 3, 4 ],
+                          columns: [ 2, 3, 4, 5 ],
                          },
                          text:'PDF'
                   },

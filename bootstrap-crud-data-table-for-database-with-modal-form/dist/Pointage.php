@@ -220,7 +220,7 @@
                               		echo '
                               		<td>
                               			<a href="#editEmployeeModal"  data-toggle="modal"><i class="material-icons edit" data-toggle="tooltip" name="editbutton" title="Modifier"  id="',$users['usrid'],'">&#xE254;</i></a>
-                              			<a href="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons delete" data-toggle="tooltip" name="deletebutton" title="Supprimer" id=',$users['usrid'],'">&#xE872;</i></a>
+                              			<a href="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons delete" data-toggle="tooltip" name="deletebutton" title="Supprimer" id="',$users['ID'],'">&#xE872;</i></a>
                               		</td>
                               	</tr> </h3>';
                               	
@@ -273,6 +273,10 @@
                               <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
                            </div>
                            <div class="modal-body">
+                              <div class="form-group" id="nomgroup">
+                                       <label>Photo Utilisateur : </label>
+                                       <img class="photovoir" id="photovoir" src="" height="55" width="70"/>
+                              </div>
                               <div class="form-group" id="nomgroup">
                                  <label>Nom</label>
                                  <input type="text" class="form-control" name="nomvoir" id="nomvoir" readonly required>
@@ -383,7 +387,7 @@
             <div class="modal-content">
             <form method="POST" action ="" >
             <div class="modal-header">						
-            <h4 class="modal-title">Modifier un employé</h4>
+            <h4 class="modal-title">Modifier le pointage</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">					
@@ -425,21 +429,22 @@
             <div class="modal-content">
             <form method="POST" action="" >
             <div class="modal-header">						
-            <h4 class="modal-title">Supprimer un employé</h4>
+            <h4 class="modal-title">Supprimer le pointage ?</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
             <input id="identifiant2" name="identifiant2" type="hidden" >					
-            <p>Êtes-vous sur de vouloir supprimer l'employé ?</p>
+            <p>Êtes-vous sur de vouloir supprimer le pointage ?</p>
             <input type="hidden" class="form-control" name="nomsupprimer" id="nomsupprimer" required>
             <p class="text-warning"><small>Cette action ne pourra pas être anulée.</small></p>
             </div>
             <div class="modal-footer">
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-            <input type="submit" class="btn btn-danger" name="validation_supprimer" value="Supprimer l'Employe">
+            <input type="submit" class="btn btn-danger" name="validation_supprimer" value="Supprimer le Pointage">
             <?php
                if (isset($_POST['validation_supprimer'])) {
-               	$supprimerpersonne = $connexion->query("DELETE FROM pointage WHERE ID = '{$_POST['identifiant2']}'");
+                  $identifiant2 = $_POST['identifiant2'];
+               	$supprimerpersonne = $connexion->query("DELETE FROM `pointage` WHERE ID = '$identifiant2'");
                	echo "<meta http-equiv='refresh' content='0'>";
                }
                //$i =0;
@@ -502,7 +507,7 @@
       <script>
          $(".delete").click(function(){
          	var id_row = $(this).attr("id");
-         
+
          	$.ajax({
          		type: "POST",
          		url: 'get_employe_by_id_point.php',
@@ -512,7 +517,7 @@
          			data = JSON.parse(data);
          			document.getElementById("identifiant2").value = data.ID;
          			document.getElementById("nomsupprimer").value = data.Nom;
-                console.log(data.ID);
+                  // console.log(data.ID);
          		}
          	});
          });
@@ -527,6 +532,7 @@
          		success: function(data)
          		{
          			data = JSON.parse(data);
+                  document.getElementById("photovoir").src = data.Image;
          			document.getElementById("nomvoir").value = data.Nom;
          			document.getElementById("mailvoir").value = data.Email;
          			document.getElementById("adressevoir").value = data.Adresse;

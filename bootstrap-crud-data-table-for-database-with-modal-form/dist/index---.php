@@ -123,12 +123,12 @@
                         <thead>
                            <tr>
                               <th>
-                                 <span class="custom-checkbox">
+                                 <!-- <span class="custom-checkbox">
                                  <input type="checkbox" id="selectAll">
                                  <label for="selectAll"></label>
-                                 </span>
+                                 </span> -->
                               </th>
-							  <th>Photo</th>
+							         <th>Photo</th>
                               <th>Nom</th>
                               <th>Email</th>
                               <th>Adresse</th>
@@ -194,10 +194,10 @@
                               	echo '</h3>
                               	<tr>
                               		<td>
-                              			<span class="custom-checkbox">
+                              			<!-- <span class="custom-checkbox">
                               				<input type="checkbox" id="checkbox1" name="',$users['ID'],'" value="">
                               				<label for="checkbox1"></label>
-                              			</span>
+                              			</span> --!>
                               		</td>';
 									echo '<td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">';
                               		echo '<img src="'.($users['Image']).'" height="35" width="37"/>';								  ; 
@@ -271,7 +271,7 @@
                            <div class="modal-body">
                               <div class="form-group" id="nomgroup">
                                     <label>Photo Utilisateur : </label>
-                                    <img class="photovoir" id="photovoir" src="" height="35" width="37"/>
+                                    <img class="photovoir" id="photovoir" src="" height="55" width="70"/>
                               </div>
                               <div class="form-group" id="nomgroup">
                                  <label>Nom</label>
@@ -396,12 +396,15 @@
             <div id="editEmployeeModal" class="modal fade">
             <div class="modal-dialog">
             <div class="modal-content">
-            <form method="POST" action ="" >
+            <form method="POST" action ="" enctype="multipart/form-data">
             <div class="modal-header">						
             <h4 class="modal-title">Modifier un employé</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body">					
+            <div class="modal-body">
+            <div class="form-group">
+                <input class="form-control" type="file" name="uploadfile" value="" />
+            </div>					
             <div class="form-group">
             <label>Nom</label>
             <input id="identifiant" name="identifiant" type="hidden" >
@@ -426,9 +429,34 @@
             <?php
                if (isset($_POST['Sauvegarder'])) {
                	$modifierpersonne = $connexion->query("UPDATE user Set Nom ='{$_POST['nommodifier']}', Email = '{$_POST['mailmodifier']}', Adresse = '{$_POST['adressemodifier']}', Telephone ='{$_POST['numeromodifier']}' WHERE ID = '{$_POST['identifiant']}'");
-               	echo "<meta http-equiv='refresh' content='0'>";
-               }
-               ?>
+
+                  error_reporting(0);
+ 
+                  $msg = "";
+                  // If upload button is clicked ...
+                  if (isset($_POST['Sauvegarder'])) {
+                  
+                     $filename = $_FILES["uploadfile"]["name"];
+                     $tempname = $_FILES["uploadfile"]["tmp_name"];
+                     $folder = "./img/" . $filename;
+
+                     $connexion = mysqli_connect("localhost", "root", "", "planning");
+
+                     // Get all the submitted data from the form
+                     $sql = "UPDATE user SET `Image`='./img/$filename' WHERE ID = '{$_POST['identifiant']}'";
+
+                     // Execute query
+                     mysqli_query($connexion, $sql);
+
+                     // Now let's move the uploaded image into the folder: image
+                     if (move_uploaded_file($tempname, $folder)) {
+                        echo "<h3>  Image uploaded successfully!</h3>";
+                     } else {
+                        echo "<h3>  Failed to upload image!</h3>";
+                     }
+                  }
+                  echo "<meta http-equiv='refresh' content='0'>";}
+            ?>
             </div>
             </form>
             </div>
